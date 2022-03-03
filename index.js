@@ -33,8 +33,8 @@ app.post('/api/notes', (request, response, next) => {
   const body = request.body
 
   if (!body.content) {
-    return response.status(400).json({ 
-      error: 'content missing' 
+    return response.status(400).json({
+      error: 'content missing'
     })
   }
 
@@ -54,34 +54,36 @@ app.post('/api/notes', (request, response, next) => {
 
 app.get('/api/notes/:id', (request, response) => {
   Note.findById(request.params.id)
-  .then(note => {
-    if(note){
-      response.json(note)
-    } else {
-      response.status(404).end()
-    }
-  })
-  .catch(error => {
-    next(error)
-  })
+    .then(note => {
+      if(note){
+        response.json(note)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => {
+      // eslint-disable-next-line no-undef
+      next(error)
+    })
 })
 
 app.delete('/api/notes/:id', (request, response) => {
   Note.findByIdAndRemove(request.params.id)
-  .then(result => {
-    response.status(204).end()
-  })
-  .catch(error => next(error))
+    .then(() => {
+      response.status(204).end()
+    })
+    // eslint-disable-next-line no-undef
+    .catch(error => next(error))
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
-  const { content, important} = requset.body
+  const { content, important } = request.body
 
   Note.findByIdAndUpdate(
-    request.params.id, 
-    {content, important}, 
+    request.params.id,
+    { content, important },
     { new:true, runValidators: true, context: 'query' })
-    .then(updateNote => {
+    .then(updatedNote => {
       response.json(updatedNote)
     })
     .catch(error => next(error))
@@ -97,9 +99,9 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if(error.name === 'CastError') {
-    return response.status(400).send( {error: 'malformatted id'})
+    return response.status(400).send( { error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message})
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
@@ -107,6 +109,7 @@ const errorHandler = (error, request, response, next) => {
 
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
