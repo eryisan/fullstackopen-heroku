@@ -1,7 +1,8 @@
 POST http://localhost:3001/api/notes/
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2MjJmMGM1MGVhZmYxNTIxOTcxNjZlYjUiLCJpYXQiOjE2NDczNDgzODR9.cME6ZQwJ4nKk7zkjkvZw17QN0-TUA6Cx3pp6Xyz54mU
 
 {
-    "content": "From vs code rest client",
+    "content": "Singe Page Apps use token authentication",
     "important": true
 }

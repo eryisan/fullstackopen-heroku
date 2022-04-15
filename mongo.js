@@ -1,15 +1,13 @@
 const mongoose = require('mongoose')
 
-// eslint-disable-next-line no-undef
 if (process.argv.length < 3) {
   console.log(
     'Please provide the password as an argument: node mongo.js <password>'
   )
-  // eslint-disable-next-line no-undef
+
   process.exit(1)
 }
 
-// eslint-disable-next-line no-undef
 const password = process.argv[2]
 
 const url = `mongodb+srv://eryisan:${password}@cluster0.xlxpl.mongodb.net/note-app?retryWrites=true&w=majority`
